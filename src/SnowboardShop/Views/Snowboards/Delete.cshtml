@@ -1,0 +1,70 @@
+@model SnowboardShop.Models.Snowboard
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Snowboard</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.marque)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.marque)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.height)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.height)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.camber)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.camber)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.flex)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.flex)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.shape)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.shape)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.price)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.price)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.urlPhoto)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.urlPhoto)
+        </dd>
+    </dl>
+    
+    <form asp-action="Delete">
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            <a asp-action="Index">Back to List</a>
+        </div>
+    </form>
+</div>

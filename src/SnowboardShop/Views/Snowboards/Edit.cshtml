@@ -1,0 +1,82 @@
+@model SnowboardShop.Models.Snowboard
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Edit</h2>
+
+<form asp-action="Edit">
+    <div class="form-horizontal">
+        <h4>Snowboard</h4>
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="ID" />
+        <div class="form-group">
+            <label asp-for="name" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="name" class="form-control" />
+                <span asp-validation-for="name" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="marque" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="marque" class="form-control" />
+                <span asp-validation-for="marque" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="height" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="height" class="form-control" />
+                <span asp-validation-for="height" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="camber" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="camber" class="form-control" />
+                <span asp-validation-for="camber" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="flex" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="flex" class="form-control" />
+                <span asp-validation-for="flex" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="shape" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="shape" class="form-control" />
+                <span asp-validation-for="shape" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="price" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="price" class="form-control" />
+                <span asp-validation-for="price" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label asp-for="urlPhoto" class="col-md-2 control-label"></label>
+            <div class="col-md-10">
+                <input asp-for="urlPhoto" class="form-control" />
+                <span asp-validation-for="urlPhoto" class="text-danger"></span>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
