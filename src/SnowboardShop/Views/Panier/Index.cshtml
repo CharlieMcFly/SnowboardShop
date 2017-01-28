@@ -1,0 +1,15 @@
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Panier</h2>
+
+
+<hr />
+<ul>
+@foreach (string id in ViewBag.Boards)
+{
+    <li>@id</li>
+}
+</ul>

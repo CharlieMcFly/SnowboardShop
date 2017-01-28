@@ -10,6 +10,9 @@ namespace SnowboardShop.Models.AccountViewModels
     {
 
         [Required]
+        public string UserRoles { get; set; }
+
+        [Required]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

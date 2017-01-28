@@ -10,8 +10,10 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using SnowboardShop.Models;
 using SnowboardShop.Models.AccountViewModels;
-using SnowboardShop.Services;
 using SnowboardShop.Data;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 namespace SnowboardShop.Controllers
 {
@@ -21,26 +23,23 @@ namespace SnowboardShop.Controllers
 
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
-        private readonly IEmailSender _emailSender;
-        private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
+        private readonly ApplicationDbContext _context;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
-            IEmailSender emailSender,
-            ISmsSender smsSender,
+            ApplicationDbContext context,
             ILoggerFactory loggerFactory)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _emailSender = emailSender;
-            _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
+            _context = context;
+
         }
 
-
-        //
+        //_
         // GET: /Account/Login
         [HttpGet]
         [AllowAnonymous]
@@ -65,6 +64,8 @@ namespace SnowboardShop.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
+                    var panier = new ShoppingCart();
+                    Models.SessionExtensions.SetObjectAsJson(HttpContext.Session, "panier", panier);
                     _logger.LogInformation(1, "User logged in.");
                     return RedirectToLocal(returnUrl);
                 }
@@ -90,6 +91,8 @@ namespace SnowboardShop.Controllers
         [AllowAnonymous]
         public IActionResult Register(string returnUrl = null)
         {
+            ViewBag.Name = new SelectList(_context.Roles.Where(u => !u.Name.Contains("Admin"))
+                                                        .ToList(), "Name", "Name");
             ViewData["ReturnUrl"] = returnUrl;
             return View();
         }
@@ -106,15 +109,18 @@ namespace SnowboardShop.Controllers
             {
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
-                await _userManager.AddToRoleAsync(user, "User");
                 if (result.Succeeded)
                 {
-             
                     await _signInManager.SignInAsync(user, isPersistent: false);
+                    await _userManager.AddToRoleAsync(user, model.UserRoles);
                     _logger.LogInformation(3, "User created a new account with password.");
                     return RedirectToLocal(returnUrl);
                 }
-                AddErrors(result);
+                else
+                {
+
+                    AddErrors(result);
+                }
             }
 
             // If we got this far, something failed, redisplay form
@@ -129,6 +135,7 @@ namespace SnowboardShop.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> LogOff()
         {
+            Models.SessionExtensions.SetObjectAsJson(HttpContext.Session, "panier", new ShoppingCart());
             await _signInManager.SignOutAsync();
             _logger.LogInformation(4, "User logged out.");
             return RedirectToAction(nameof(HomeController.Index), "Home");

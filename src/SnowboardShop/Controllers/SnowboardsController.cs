@@ -147,6 +147,16 @@ namespace SnowboardShop.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult AddSnowboard(string id)
+        {
+            ShoppingCart panier = SessionExtensions.GetObjectFromJson<ShoppingCart>(HttpContext.Session, "panier");
+            panier.addSnowboard(id);
+            Console.WriteLine(id);
+            SessionExtensions.SetObjectAsJson(HttpContext.Session, "panier", panier);
+
+            return RedirectToAction("Index");
+        }
+
         private bool SnowboardExists(int id)
         {
             return _context.Snowboard.Any(e => e.ID == id);
