@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace SnowboardShop.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "User")]
     public class PanierController : Controller
     {
 

@@ -12,6 +12,12 @@
         <a asp-action="Create">Create New</a>
     </p>
 }
+@if (User.IsInRole("Manager"))
+{
+    <p>
+        <a asp-action="Create">Create New</a>
+    </p>
+}
 <table class="table">
     <thead>
         <tr>
@@ -77,6 +83,10 @@
                 { 
                     <a asp-action="Edit" asp-route-id="@item.ID">Edit</a>
                     <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                }
+                @if (User.IsInRole("Manager"))
+                {
+                    <a asp-action="Edit" asp-route-id="@item.ID">Edit</a>
                 }
                 
             </td>

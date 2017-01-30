@@ -113,6 +113,8 @@ namespace SnowboardShop.Controllers
                 {
                     await _signInManager.SignInAsync(user, isPersistent: false);
                     await _userManager.AddToRoleAsync(user, model.UserRoles);
+                    var panier = new ShoppingCart();
+                    Models.SessionExtensions.SetObjectAsJson(HttpContext.Session, "panier", panier);
                     _logger.LogInformation(3, "User created a new account with password.");
                     return RedirectToLocal(returnUrl);
                 }

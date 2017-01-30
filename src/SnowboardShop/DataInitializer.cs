@@ -16,7 +16,7 @@ namespace SnowboardShop
         {
             // CREATING ROLES
 
-            string[] roles = new string[] { "Admin", "User" };
+            string[] roles = new string[] { "Admin", "Manager", "User" };
 
             RoleManager<IdentityRole> roleManager = serviceProvider.GetService<RoleManager<IdentityRole>>();
 

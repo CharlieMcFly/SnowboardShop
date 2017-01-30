@@ -65,6 +65,10 @@
     {
         <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a>
     }
+    @if (User.IsInRole("Manager"))
+    {
+        <a asp-action="Edit" asp-route-id="@Model.ID">Edit</a>
+    }
     @if (User.IsInRole("User"))
     {
         @Html.ActionLink("Ajouter au panier", "AddSnowboard", "Snowboards", new { id = Model.name }, null )

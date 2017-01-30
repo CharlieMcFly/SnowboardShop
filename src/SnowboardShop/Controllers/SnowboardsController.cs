@@ -18,7 +18,7 @@ namespace SnowboardShop.Controllers
 
         public SnowboardsController(ApplicationDbContext context)
         {
-            _context = context;    
+            _context = context;
         }
 
         // GET: Snowboards
@@ -46,6 +46,7 @@ namespace SnowboardShop.Controllers
         }
 
         // GET: Snowboards/Create
+        [Authorize(Roles = "Manager, Admin")]
         public IActionResult Create()
         {
             return View();
@@ -54,6 +55,7 @@ namespace SnowboardShop.Controllers
         // POST: Snowboards/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Manager, Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ID,name,marque,height,camber,flex,shape,price,urlPhoto")] Snowboard snowboard)
@@ -86,6 +88,7 @@ namespace SnowboardShop.Controllers
         // POST: Snowboards/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize(Roles = "Manager, Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ID,name,marque,height,camber,flex,shape,price,urlPhoto")] Snowboard snowboard)
@@ -137,6 +140,7 @@ namespace SnowboardShop.Controllers
         }
 
         // POST: Snowboards/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -147,6 +151,7 @@ namespace SnowboardShop.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize (Roles ="User")]
         public IActionResult AddSnowboard(string id)
         {
             ShoppingCart panier = SessionExtensions.GetObjectFromJson<ShoppingCart>(HttpContext.Session, "panier");
